@@ -11,17 +11,17 @@ class Program
         string csvPath = @"C:\\Users\\smith\\Desktop\\errores.csv";
         string imagePath = @"C:\\Users\\smith\\Desktop\\grafica_errores.png";
 
-        // Ejecutar entrenamiento y mostrar progreso
+     
         var (epocas, erroresSecuencial, erroresParalelo) = Entrenamiento();
 
-        // Generar y guardar la gráfica
+       
         GenerarGraficaErrores(epocas, erroresSecuencial, erroresParalelo, imagePath);
         Console.WriteLine($"Gráfica guardada en: {imagePath}");
 
-        // Abrir la imagen
+        
         Process.Start(new ProcessStartInfo(imagePath) { UseShellExecute = true });
 
-        // Abrir el CSV en Excel automáticamente
+        
         AbrirEnExcel(csvPath);
     }
 

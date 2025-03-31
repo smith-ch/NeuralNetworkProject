@@ -19,9 +19,9 @@ class MatrixUtils
 
     public static (double[][], double[][]) LoadData(string filePath)
     {
-        var lines = File.ReadAllLines(filePath).Skip(1).ToArray(); // Omitir encabezados
+        var lines = File.ReadAllLines(filePath).Skip(1).ToArray(); 
         double[][] inputs = lines.Select(line => line.Split(',').Take(2).Select(double.Parse).ToArray()).ToArray();
-        double[][] outputs = lines.Select(line => line.Split(',').Skip(2).Take(2).Select(double.Parse).ToArray()).ToArray(); // Asegurar 2 columnas
+        double[][] outputs = lines.Select(line => line.Split(',').Skip(2).Take(2).Select(double.Parse).ToArray()).ToArray(); 
 
         return (inputs, outputs);
     }

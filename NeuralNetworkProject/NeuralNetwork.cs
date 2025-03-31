@@ -71,7 +71,7 @@ public class NeuralNetwork
         return outputLayer;
     }
 
-    // 🔹 Método Predict agregado aquí
+
     public double[] Predict(double[] input)
     {
         return Forward(input);
@@ -85,7 +85,7 @@ public class NeuralNetwork
         if (expectedOutput.Length != outputSize)
             throw new Exception($"Error: Tamaño de expectedOutput incorrecto. Esperado {outputSize}, recibido {expectedOutput.Length}");
 
-        // **Paso 1: Forward Pass (Propagación hacia adelante)**
+       
         double[] hiddenLayer = new double[hiddenSize];
         double[] outputLayer = new double[outputSize];
 
@@ -105,23 +105,23 @@ public class NeuralNetwork
             outputLayer[i] = Sigmoid(outputLayer[i]);
         }
 
-        // **Paso 2: Calcular el error en la capa de salida**
+        
         double[] outputErrors = new double[outputSize];
         double[] outputDeltas = new double[outputSize];
 
-        double totalError = 0; // 🔹 Variable para acumular el error total
+        double totalError = 0; 
 
         for (int i = 0; i < outputSize; i++)
         {
             outputErrors[i] = expectedOutput[i] - outputLayer[i];
             outputDeltas[i] = outputErrors[i] * SigmoidDerivative(outputLayer[i]);
 
-            totalError += Math.Pow(outputErrors[i], 2); // 🔹 Error cuadrático
+            totalError += Math.Pow(outputErrors[i], 2); 
         }
 
-        totalError /= outputSize; // 🔹 Promedio del error
+        totalError /= outputSize; 
+        
 
-        // **Paso 3: Calcular el error en la capa oculta**
         double[] hiddenErrors = new double[hiddenSize];
         double[] hiddenDeltas = new double[hiddenSize];
 
@@ -134,7 +134,7 @@ public class NeuralNetwork
             hiddenDeltas[i] = hiddenErrors[i] * SigmoidDerivative(hiddenLayer[i]);
         }
 
-        // **Paso 4: Actualizar los pesos y sesgos**
+        
         for (int i = 0; i < hiddenSize; i++)
             for (int j = 0; j < outputSize; j++)
                 weightsHiddenOutput[i, j] += learningRate * outputDeltas[j] * hiddenLayer[i];
@@ -149,14 +149,14 @@ public class NeuralNetwork
         for (int i = 0; i < hiddenSize; i++)
             hiddenBias[i] += learningRate * hiddenDeltas[i];
 
-        return totalError; // 🔹 Devolver el error total
+        return totalError; 
     }
 
 
     public List<double> TrainSequential(double[][] inputs, double[][] expectedOutputs, int epochs, double learningRate, string csvPath)
     {
         List<string> errorLog = new List<string>();
-        List<double> errores = new List<double>(); // Para almacenar los errores y retornarlos
+        List<double> errores = new List<double>(); 
 
         for (int epoch = 0; epoch < epochs; epoch++)
         {
@@ -168,7 +168,7 @@ public class NeuralNetwork
             }
 
             double averageError = totalError / inputs.Length;
-            errores.Add(averageError); // Guardamos el error en la lista
+            errores.Add(averageError); 
             errorLog.Add($"{epoch},{averageError}");
 
             if (epoch % 1000 == 0)
@@ -176,7 +176,7 @@ public class NeuralNetwork
         }
 
         File.WriteAllLines(csvPath, errorLog);
-        return errores; // Devolvemos la lista de errores
+        return errores; 
     }
 
     public List<double> TrainParallel(double[][] inputs, double[][] expectedOutputs, int epochs, double learningRate, string csvPath)
@@ -203,11 +203,11 @@ public class NeuralNetwork
         }
 
         File.WriteAllLines(csvPath, errorLog);
-        return errores; // Devolvemos la lista de errores
+        return errores; 
     }
 
 
-    // Función para calcular el Error Cuadrático Medio (MSE)
+    
     private double MSE(double[] output, double[] expected)
     {
         double sum = 0;
